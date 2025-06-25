@@ -2,6 +2,7 @@ from flask import Flask, render_template, request, redirect, url_for, flash
 from flask_sqlalchemy import SQLAlchemy
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import LoginManager, UserMixin, login_user, login_required, logout_user, current_user
+from datetime import datetime
 
 app = Flask(__name__)
 app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///site.db"
@@ -19,7 +20,18 @@ class User(db.Model, UserMixin):
     password_hash = db.Column(db.String(128), nullable=False)
 
     def __repr__(self):
-        return f"User(\\\\'{self.username}\\\\, \\\'{self.email}\\\\,)"
+        return f"User(\'{self.username}\, \'{self.email}\')"
+
+class Employee(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    first_name = db.Column(db.String(100), nullable=False)
+    last_name = db.Column(db.String(100), nullable=False)
+    email = db.Column(db.String(120), unique=True, nullable=False)
+    phone = db.Column(db.String(20), nullable=False)
+    hire_date = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
+
+    def __repr__(self):
+        return f"Employee(\'{self.first_name}\, \'{self.last_name}\')"
 
 @login_manager.user_loader
 def load_user(user_id):
