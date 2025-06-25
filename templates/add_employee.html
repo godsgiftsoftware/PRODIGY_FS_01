@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% block title %}Add Employee{% endblock %}
+{% block content %}
+  <h2>Add New Employee</h2>
+  <form action="/add_employee" method="post">
+    <div class="form-group">
+      <label for="first_name">First Name:</label>
+      <input type="text" id="first_name" name="first_name" required>
+    </div>
+    <div class="form-group">
+      <label for="last_name">Last Name:</label>
+      <input type="text" id="last_name" name="last_name" required>
+    </div>
+    <div class="form-group">
+      <label for="email">Email:</label>
+      <input type="email" id="email" name="email" required>
+    </div>
+    <div class="form-group">
+      <label for="phone">Phone:</label>
+      <input type="text" id="phone" name="phone" required>
+    </div>
+    <div class="form-group">
+      <label for="hire_date">Hire Date:</label>
+      <input type="date" id="hire_date" name="hire_date" required>
+    </div>
+    <button type="submit">Add Employee</button>
+  </form>
+  <p><a href="/employees">View All Employees</a></p>

@@ -98,6 +98,38 @@ def logout():
     flash("You have been logged out.", "info")
     return redirect(url_for("hello_world"))
 
+@app.route("/add_employee", methods=["GET", "POST"])
+@login_required
+def add_employee():
+    if request.method == "POST":
+        first_name = request.form["first_name"]
+        last_name = request.form["last_name"]
+        email = request.form["email"]
+        phone = request.form["phone"]
+        hire_date_str = request.form["hire_date"]
+
+        # Convert hire_date string to datetime object
+        hire_date = datetime.strptime(hire_date_str, '%Y-%m-%d')
+
+        existing_employee = Employee.query.filter_by(email=email).first()
+        if existing_employee:
+            flash("Employee with this email already exists.", "danger")
+            return redirect(url_for("add_employee"))
+        
+        new_employee = Employee(
+            first_name=first_name,
+            last_name=last_name,
+            email=email,
+            phone=phone,
+            hire_date=hire_date
+        )
+        db.session.add(new_employee)
+        db.session.commit()
+
+        flash("Employee added successfully!", "success")
+        return redirect(url_for("employees")) # Redirect to a page that list all employees
+    return render_template("add_employee.html")
+
 if __name__ == "__main__":
     with app.app_context():
         db.create_all()
