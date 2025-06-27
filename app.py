@@ -130,6 +130,12 @@ def add_employee():
         return redirect(url_for("employees")) # Redirect to a page that list all employees
     return render_template("add_employee.html")
 
+@app.route("/employees")
+@login_required
+def employees():
+    all_employees = Employee.query.all()
+    return render_template("employees.html", employees=all_employees)
+
 if __name__ == "__main__":
     with app.app_context():
         db.create_all()

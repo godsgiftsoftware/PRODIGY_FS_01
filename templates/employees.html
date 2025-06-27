@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+{% block title %}Employee List{% endblock %}
+{% block content %}
+        <h2>Employee List</h2>
+        <p><a href="/add_employee">Add New Employee</a></p>
+        {% if employees %}
+            <table>
+                <thead>
+                    <tr>
+                        <th>First Name</th>
+                        <th>Last Name</th>
+                        <th>Email</th>
+                        <th>Phone</th>
+                        <th>Hire Date</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for employee in employees %}
+                    <tr>
+                        <td>{{ employee.first_name }}</td>
+                        <td>{{ employee.last_name }}</td>
+                        <td>{{ employee.email }}</td>
+                        <td>{{ employee.phone }}</td>
+                        <td>{{ employee.hire_date.strftime("%Y-%m-%d") }}</td>
+                        <td>
+                            <a href="/edit_employee/{{ employee.id }}">Edit</a> |
+                            <a href="/delete_employee/{{ employee.id }}">Delete</a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        {% else %}
+            <p>No employees found. <a href="/add_employee">Add one now!</a></p>
+        {% endif %}
+{% endblock %}
