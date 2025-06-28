@@ -140,3 +140,30 @@ if __name__ == "__main__":
     with app.app_context():
         db.create_all()
     app.run(debug=True)
+
+@app.route("/edit_employee/<int:id>", methods=["GET", "POST"])
+@login_required
+def edit_employee(id):
+    employee = Employee.query.get_or_404(id)
+
+    if request.method == "POST":
+        employee.first_name = request.form["first_name"]
+        employee.last_name = request.form["last_name"]
+        employee.email = request.form["email"]
+        employee.phone = request.form["phone"]
+        hire_date_str = request.form["hire_date"]
+
+        # To convert hire_date string to datetime object
+        employee.hire_date = datetime.strptime(hire_date_str, '%Y-%m-%d')
+
+        # To check if the email is already used by another employee
+        existing_employee = Employee.query.filter_by(email=employee.email).first()
+        if existing_employee and existing_employee.id != employee.id:
+            flash("An employee with this email already exists.", "danger")
+            return redirect(url_for("edit_employee", id=id))
+
+        db.session.commit()
+        flash("Employee updated successfully!", "success")
+        return redirect(url_for("employees"))
+
+    return render_template("edit_employee.html", employee=employee)
