@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% block title%}Edit Employee{% endblock %}
+{% block content %}
+  <h2>Edit Employee</h2>
+  <form action="/edit_employee/{{ employee.id }}" method="post">
+    <div class="form-group">
+      <label for="first_name">First Name:</label>
+      <input type="text" id="first_name" name="first_name" value="{{ employee.first_name }}" required>
+    </div>
+    <div class="form-group">
+      <label for="last_name">Last Name:</label>
+      <input type="text" id="last_name" name="last_name" value="{{ employee.last_name }}" required>
+    </div>
+    <div class="form-group">
+      <label for="email">Email:</label>
+      <input type="email" id="email" name="email" value="{{ employee.email }}" required>
+    </div>
+    <div class="form-group">
+      <label for="phone">Phone:</label>
+      <input type="text" id="phone" name="phone" value="{{ employee.phone }}" required>
+    </div>
+    <div class="form-group">
+      <label for="hire_date">Hire Date:</label>
+      <input type="date" id="hire_date" name="hire_date" value="{{ employee.hire_date.strftime('%Y-%m-%d') }}" required>
+    </div>
+    <button type="submit">Update Employee</button>
+  </form>
+  <p><a href="/employees">Back to Employee List</a></p>
