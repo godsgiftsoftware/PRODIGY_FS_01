@@ -176,3 +176,10 @@ def delete_employee(id):
     db.session.commit()
     flash(f"Employee {employee.first_name} {employee.last_name} deleted successfully!", "success")
     return redirect(url_for("employees"))
+
+@app.route("/debug_routes")
+def debug_routes():
+    routes = []
+    for rule in app.url_map.iter_rules():
+        routes.append(f"{rule.rule} -> {rule.endpoint}")
+    return "<br>".join(routes)
