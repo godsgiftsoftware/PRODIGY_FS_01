@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+{% block title %}Employee Management System{% endblock %}
+{% block content %}
+<div class="container">
+    <div class="dashboard-welcome">
+        <h1>🏢 Employee Management System</h1>
+        <p>Streamline your workforce management with our comprehensive solution</p>
+    </div>
+
+    <div style="text-align: center; margin: 40px 0;">
+        {% if current_user.is_authenticated %}
+            <h3>Welcome back, {{ current_user.username }}! 👋</h3>
+            <div class="nav-links">
+                <a href="/dashboard" class="btn btn-success">🏠 Go to Dashboard</a>
+                <a href="/employees" class="btn">👥 View Employees</a>
+                <a href="/logout" class="btn btn-danger">🚪 Logout</a>
+            </div>
+        {% else %}
+            <h3>Get started with managing your employees</h3>
+            <div class="nav-links">
+                <a href="/login" class="btn btn-success">🔐 Login</a>
+                <a href="/register" class="btn">📝 Register</a>
+            </div>
+        {% endif %}
+    </div>
+
+    <div class="stats-grid">
+        <div class="stat-card">
+            <h4>🎯 Efficient</h4>
+            <p>Streamlined employee data management</p>
+        </div>
+        <div class="stat-card">
+            <h4>🔒 Secure</h4>
+            <p>Protected with authentication</p>
+        </div>
+        <div class="stat-card">
+            <h4>📱 Responsive</h4>
+            <p>Works on all devices</p>
+        </div>
+    </div>
+</div>
+{% endblock %}
