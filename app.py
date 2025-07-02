@@ -89,7 +89,11 @@ def login():
 @app.route("/dashboard")
 @login_required
 def dashboard():
-    return f"Hello, {current_user.username}! Welcome to your dashboard."
+    total_employees = Employee.query.count()
+    recent_employees = Employee.query.order_by(Employee.hire_date.desc()).limit(5).all()
+    return render_template("dashboard.html",
+                           total_employees=total_employees,
+                           recent_employees=recent_employees)
 
 @app.route("/logout")
 @login_required
