@@ -1,21 +1,31 @@
 {% extends "base.html" %}
 {% block title %}Register{% endblock %}
 {% block content %}
-        <h2>Register</h2>
+<div class="container">
+    <h2>📝 Create Your Account</h2>
+    
+    <div class="form-container">
         <form method="POST" action="/register">
             <div class="form-group">
-                <label for="username">Username:</label>
+                <label for="username">👤 Username:</label>
                 <input type="text" id="username" name="username" required>
             </div>
             <div class="form-group">
-                <label for="email">Email:</label>
+                <label for="email">📧 Email Address:</label>
                 <input type="email" id="email" name="email" required>
             </div>
             <div class="form-group">
-                <label for="password">Password:</label>
+                <label for="password">🔒 Password:</label>
                 <input type="password" id="password" name="password" required>
             </div>
-            <button type="submit">Register</button>
+            <div style="text-align: center;">
+                <button type="submit" class="btn btn-success">🎉 Create Account</button>
+            </div>
         </form>
-        <p>Already have an account? <a href="/login">Login here</a></p>
+        
+        <div style="text-align: center; margin-top: 20px;">
+            <p>Already have an account? <a href="/login" class="btn">🔐 Login Here</a></p>
+        </div>
+    </div>
+</div>
 {% endblock %}
