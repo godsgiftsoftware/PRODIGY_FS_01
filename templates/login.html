@@ -1,17 +1,27 @@
 {% extends "base.html" %}
 {% block title %}Login{% endblock %}
 {% block content %}
-        <h2>Login</h2>
+<div class="container">
+    <h2>🔐 Login to Your Account</h2>
+    
+    <div class="form-container">
         <form method="POST" action="/login">
             <div class="form-group">
-                <label for="email">Email:</label>
+                <label for="email">📧 Email Address:</label>
                 <input type="email" id="email" name="email" required>
             </div>
             <div class="form-group">
-                <label for="password">Password:</label>
+                <label for="password">🔒 Password:</label>
                 <input type="password" id="password" name="password" required>
             </div>
-            <button type="submit">Login</button>
+            <div style="text-align: center;">
+                <button type="submit" class="btn btn-success">🚀 Login</button>
+            </div>
         </form>
-        <p>Don't have an account? <a href="/register">Register here</a></p>
+        
+        <div style="text-align: center; margin-top: 20px;">
+            <p>Don't have an account? <a href="/register" class="btn">📝 Register Here</a></p>
+        </div>
+    </div>
+</div>
 {% endblock %}
