@@ -1,7 +1,15 @@
 {% extends "base.html" %}
 {% block title %}Edit Employee{% endblock %}
 {% block content %}
-        <h2>Edit Employee</h2>
+<div class="container">
+    <h2>Edit Employee</h2>
+    
+    <div class="nav-links">
+        <a href="/employees" class="btn">👥 Back to Employee List</a>
+        <a href="/dashboard" class="btn">🏠 Dashboard</a>
+    </div>
+
+    <div class="form-container">
         <form method="POST" action="/edit_employee/{{ employee.id }}">
             <div class="form-group">
                 <label for="first_name">First Name:</label>
@@ -23,7 +31,11 @@
                 <label for="hire_date">Hire Date:</label>
                 <input type="date" id="hire_date" name="hire_date" value="{{ employee.hire_date.strftime('%Y-%m-%d') }}" required>
             </div>
-            <button type="submit">Update Employee</button>
+            <div style="text-align: center;">
+                <button type="submit" class="btn btn-success">💾 Update Employee</button>
+                <a href="/employees" class="btn">❌ Cancel</a>
+            </div>
         </form>
-        <p><a href="/employees">Back to Employee List</a></p>
+    </div>
+</div>
 {% endblock %}
