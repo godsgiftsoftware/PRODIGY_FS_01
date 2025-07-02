@@ -1,0 +1,67 @@
+{% extends "base.html" %}
+{% block title %}Dashboard{% endblock %}
+{% block content %}
+<div class="container">
+    <div class="dashboard-welcome">
+        <h1>Welcome back, {{ current_user.username }}! 👋</h1>
+        <p>Employee Management System Dashboard</p>
+    </div>
+
+    <div class="stats-grid">
+        <div class="stat-card">
+            <div class="stat-number">{{ total_employees }}</div>
+            <div class="stat-label">Total Employees</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-number">{{ recent_employees|length }}</div>
+            <div class="stat-label">Recent Hires</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-number">100%</div>
+            <div class="stat-label">System Uptime</div>
+        </div>
+    </div>
+
+    <div class="nav-links">
+        <a href="/employees" class="btn btn-success">👥 View All Employees</a>
+        <a href="/add_employee" class="btn">➕ Add New Employee</a>
+        <a href="/logout" class="btn btn-danger">🚪 Logout</a>
+    </div>
+
+    {% if recent_employees %}
+    <div class="table-container">
+        <h3 style="margin-bottom: 20px; color: #2c3e50;">📅 Recently Hired Employees</h3>
+        <table>
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Hire Date</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for employee in recent_employees %}
+                <tr>
+                    <td>{{ employee.first_name }} {{ employee.last_name }}</td>
+                    <td>{{ employee.email }}</td>
+                    <td>{{ employee.hire_date.strftime("%Y-%m-%d") }}</td>
+                    <td>
+                        <div class="action-buttons">
+                            <a href="/edit_employee/{{ employee.id }}" class="edit-btn">✏️ Edit</a>
+                        </div>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    {% else %}
+    <div class="empty-state">
+        <h3>No employees yet</h3>
+        <p>Start building your team by adding your first employee!</p>
+        <a href="/add_employee" class="btn btn-success">➕ Add Your First Employee</a>
+    </div>
+    {% endif %}
+</div>
+{% endblock %}
